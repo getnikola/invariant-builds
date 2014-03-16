@@ -24,7 +24,7 @@ install:
 script:
 - nikola init --demo nikola-site
 - cd nikola-site
-- python -c 'from nikola.__main__ import main; main(["nikola", "build", "--invariant"])'
+- python -c 'from nikola.__main__ import main; exit(main(["build", "--invariant"]))'
 after_success:
 - echo -e 'Host gh\n    Host github.com\n    StrictHostKeyChecking no' >> ~/.ssh/config
 - cd output
