@@ -5,13 +5,12 @@ python:
 before_install:
 - git config --global user.name 'Differentiator'
 - git config --global user.email 'invariantbuildbot@getnikola.com'
-- pip install --use-mirrors pycrypto
+- pip install --use-mirrors pycrypto pip wheel
 - python decrypt_sshkey.py
 - chmod 600 id_rsa
 - eval $(ssh-agent)
 - ssh-add id_rsa
 install:
-- pip install --use-mirrors pip wheel
 - wget https://github.com/getnikola/wheelhouse/archive/$(getpyver.py).zip
 - unzip $(getpyver.py).zip
 - pip install --use-wheel --no-index --find-links=wheelhouse-$(getpyver.py short) lxml Pillow ipython
