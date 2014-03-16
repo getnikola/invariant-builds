@@ -5,6 +5,7 @@ python:
 before_install:
 - git config --global user.name 'Differentiator'
 - git config --global user.email 'invariantbuildbot@getnikola.com'
+- git config --global push.default 'simple'
 - pip install --use-mirrors pycrypto pip wheel
 - python decrypt_sshkey.py
 - chmod 600 id_rsa
@@ -23,7 +24,7 @@ install:
 script:
 - nikola init --demo nikola-site
 - cd nikola-site
-- nikola build --invariant
+- python -c 'from nikola.__main__ import main; main(["nikola", "build", "--invariant"])'
 after_success:
 - echo -e 'Host gh\n    Host github.com\n    StrictHostKeyChecking no' >> ~/.ssh/config
 - cd output
@@ -32,7 +33,7 @@ after_success:
 - git remote add origin git@github.com:getnikola/invariant-builds.git
 - git add .
 - git commit -am "invariant build $(date) [ci skip]"
-- git push --force origin $(../getpyver.py)
+- git push --force origin $(../../../getpyver.py)
 notifications:
   irc:
     channels:
