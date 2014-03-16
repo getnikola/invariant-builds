@@ -5,7 +5,7 @@ before_install:
 - git config --global user.name 'Differentiator'
 - git config --global user.email 'invariantbuildbot@getnikola.com'
 - git config --global push.default 'simple'
-- pip install --use-mirrors pycrypto pip wheel
+- pip install pycrypto pip wheel
 - python decrypt_sshkey.py
 - chmod 600 id_rsa
 - eval $(ssh-agent)
