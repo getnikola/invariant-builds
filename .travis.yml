@@ -23,7 +23,7 @@ install:
 script:
 - nikola init --demo nikola-site
 - cd nikola-site
-- LC_ALL='en_US.UTF-8' python -c 'from nikola.__main__ import main; exit(main(["build", "--invariant"]))'
+- LC_ALL='en_US.UTF-8' python -c 'import locale; locale.setlocale(locale.LC_ALL, ("en_US", "utf8")); from nikola.__main__ import main; exit(main(["build", "--invariant"]))'
 after_success:
 - echo -e 'Host gh\n    Host github.com\n    StrictHostKeyChecking no' >> ~/.ssh/config
 - cd output
