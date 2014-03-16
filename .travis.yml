@@ -1,0 +1,44 @@
+language: python
+python:
+- '2.7'
+- '3.3'
+before_install:
+- git config --global user.name 'Differentiator'
+- git config --global user.email 'invariantbuildbot@getnikola.com'
+- pip install --use-mirrors pycrypto
+- python decrypt_sshkey.py
+- chmod 600 id_rsa
+- eval $(ssh-agent)
+- ssh-add id_rsa
+install:
+- pip install --use-mirrors pip wheel
+- wget https://github.com/getnikola/wheelhouse/archive/$(getpyver.py).zip
+- unzip $(getpyver.py).zip
+- pip install --use-wheel --no-index --find-links=wheelhouse-$(getpyver.py short) lxml Pillow ipython
+- git clone https://github.com/getnikola/nikola -b $(getdata.py branch)
+- cd nikola
+- git checkout -qf $(getdata.py commit)
+- pip install -r requirements-tests.txt
+- pip install .
+script:
+- nikola init --demo nikola-site
+- cd nikola-site
+- nikola build --invariant
+after_success:
+- echo -e 'Host gh\n    Host github.com\n    StrictHostKeyChecking no' >> ~/.ssh/config
+- git clone -b $(python getpyver.py) git@github.com:getnikola/invariant-builds.git gh-output
+- cd gh-wheelhouse
+- git rm -rf .
+- cp ../output/* .
+- git add .
+- git commit -am "invariant rebuild $(date) [ci skip]"
+- git push origin $(python ../getpyver.py)
+notifications:
+  irc:
+    channels:
+    - chat.freenode.net#nikola
+    template:
+    - 'Invariant build by %{author}: %{message} See %{build_url}.'
+env:
+  global:
+  - secure: afQGzZVJCOJtwVuadh6I0P7ZgvNn9QnssN3MAEiI5iEQbH9jzdswKSC905vKCxDFiQhzGfI8qFqVUeXMlOntWPRILlPRSZe0OciNV6mNoI0CcmxANPMcv8ykAdn1/E/dIoY2OO9MWtdZVy5gqI4kDiWZTZTA7ClwkIJ8qQQ4qB4=
