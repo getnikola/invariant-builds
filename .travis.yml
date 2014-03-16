@@ -1,6 +1,7 @@
 language: python
 python:
 - '2.7'
+- '3.3'
 before_install:
 - git config --global user.name 'Differentiator'
 - git config --global user.email 'invariantbuildbot@getnikola.com'
@@ -28,11 +29,11 @@ after_success:
 - echo -e 'Host gh\n    Host github.com\n    StrictHostKeyChecking no' >> ~/.ssh/config
 - cd output
 - git init .
-- git checkout -b output
+- git checkout -b $(../../../getpyver.py)
 - git remote add origin git@github.com:getnikola/invariant-builds.git
 - git add .
 - git commit -am "invariant build $(date) [ci skip]"
-- git push --force origin output
+- git push --force origin $(../../../getpyver.py)
 notifications:
   irc:
     channels:
