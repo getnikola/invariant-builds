@@ -10,5 +10,5 @@ with open('./SSHKEY', 'rb') as fh:
 decrypted = obj.decrypt(encrypted)
 
 with open('./id_rsa', 'wb') as fh:
-    # The last bytes are padding \0s.
-    fh.write(decrypted[:-5])
+    # The last byte is a padding \0.
+    fh.write(decrypted[:-1])

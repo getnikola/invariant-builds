@@ -13,7 +13,8 @@ before_install:
 install:
 - wget https://github.com/getnikola/wheelhouse/archive/$(getpyver.py).zip
 - unzip $(getpyver.py).zip
-- pip install --use-wheel --no-index --find-links=wheelhouse-$(getpyver.py short) lxml Pillow ipython
+- pip install --use-wheel --no-index --find-links=wheelhouse-$(getpyver.py short)
+  lxml Pillow ipython
 - git clone https://github.com/getnikola/nikola -b $(getdata.py branch)
 - cd nikola
 - git checkout -qf $(getdata.py commit)
@@ -25,13 +26,13 @@ script:
 - nikola build --invariant
 after_success:
 - echo -e 'Host gh\n    Host github.com\n    StrictHostKeyChecking no' >> ~/.ssh/config
-- git clone -b $(python getpyver.py) git@github.com:getnikola/invariant-builds.git gh-output
-- cd gh-wheelhouse
-- git rm -rf .
-- cp ../output/* .
+- cd output
+- git init .
+- git checkout -b $(../getpyver.py)
+- git remote add origin git@github.com:getnikola/invariant-builds.git
 - git add .
-- git commit -am "invariant rebuild $(date) [ci skip]"
-- git push origin $(python ../getpyver.py)
+- git commit -am "invariant build $(date) [ci skip]"
+- git push --force origin $(../getpyver.py)
 notifications:
   irc:
     channels:
@@ -40,4 +41,4 @@ notifications:
     - 'Invariant build by %{author}: %{message} See %{build_url}.'
 env:
   global:
-  - secure: afQGzZVJCOJtwVuadh6I0P7ZgvNn9QnssN3MAEiI5iEQbH9jzdswKSC905vKCxDFiQhzGfI8qFqVUeXMlOntWPRILlPRSZe0OciNV6mNoI0CcmxANPMcv8ykAdn1/E/dIoY2OO9MWtdZVy5gqI4kDiWZTZTA7ClwkIJ8qQQ4qB4=
+    secure: Mf/FZd2ISNdfh7BqWKp6pXO5/K0hd0R86Ydn7F3IZLy7n9g7IhiulMpSuwSlchM7k8x1MwxAyBdxPPgUlgYNTSH5Wt5cI4CVZcRRPDq7sedXNiAMN6EMDYltrXS+2bjq5HbJ6m0hOrdsebcK/wDIQJUHuZ9KMG6k6XYjcUyXt8g=
