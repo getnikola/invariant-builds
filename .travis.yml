@@ -1,7 +1,6 @@
 language: python
 python:
 - '2.7'
-- '3.3'
 before_install:
 - git config --global user.name 'Differentiator'
 - git config --global user.email 'invariantbuildbot@getnikola.com'
