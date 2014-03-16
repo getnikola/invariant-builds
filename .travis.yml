@@ -28,7 +28,7 @@ after_success:
 - echo -e 'Host gh\n    Host github.com\n    StrictHostKeyChecking no' >> ~/.ssh/config
 - cd output
 - git init .
-- git checkout -b $(../getpyver.py)
+- git checkout -b $(../../../getpyver.py)
 - git remote add origin git@github.com:getnikola/invariant-builds.git
 - git add .
 - git commit -am "invariant build $(date) [ci skip]"
