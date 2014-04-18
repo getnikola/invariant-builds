@@ -22,7 +22,7 @@ install:
 script:
 - nikola init -qd nikola-site
 - cd nikola-site
-- rm stories/creating-a-theme.rst stories/extending.txt stories/internals.txt stories/manual.rst stories/social_buttons.txt stories/theming.rst stories/upgrading-to-v6.txt
+- rm "stories/creating-a-theme.rst" "stories/extending.txt" "stories/internals.txt" "stories/manual.rst" "stories/social_buttons.txt" "stories/theming.rst" "stories/upgrading-to-v6.txt"
 - LC_ALL='en_US.UTF-8' python -c 'import locale; locale.setlocale(locale.LC_ALL, ("en_US", "utf8")); from nikola.__main__ import main; exit(main(["build", "--invariant"]))'
 after_success:
 - echo -e 'Host gh\n    Host github.com\n    StrictHostKeyChecking no' >> ~/.ssh/config
