@@ -1,6 +1,11 @@
 language: python
 python:
 - '2.7'
+sudo: false
+addons:
+    apt:
+        packages:
+            - language-pack-en-base
 before_install:
 - git config --global user.name 'Differentiator'
 - git config --global user.email 'invariantbuildbot@getnikola.com'
@@ -10,7 +15,6 @@ before_install:
 - chmod 600 id_rsa
 - eval $(ssh-agent)
 - ssh-add id_rsa
-- sudo apt-get --reinstall install -qq language-pack-en-base
 install:
 - wget https://github.com/getnikola/wheelhouse/archive/$(./getpyver.py).zip
 - unzip $(./getpyver.py).zip
