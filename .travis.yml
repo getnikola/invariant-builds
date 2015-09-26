@@ -1,6 +1,7 @@
 language: python
 python:
-- '3.5'
+    - '2.7'
+    - '3.5'
 sudo: false
 addons:
     apt:
@@ -27,7 +28,7 @@ script:
 - nikola init -qd nikola-site
 - cd nikola-site
 - cp ../tests/data/1-nolinks.rst posts/1.rst
-- rm "stories/creating-a-theme.rst" "stories/extending.txt" "stories/internals.txt" "stories/manual.rst" "stories/social_buttons.txt" "stories/theming.rst" "stories/path_handlers.txt"
+- rm "stories/creating-a-theme.rst" "stories/extending.txt" "stories/internals.txt" "stories/manual.rst" "stories/social_buttons.txt" "stories/theming.rst" "stories/path_handlers.txt" "stories/charts.txt"
 - LC_ALL='en_US.UTF-8' python -c 'import locale; locale.setlocale(locale.LC_ALL, ("en_US", "utf8")); from nikola.__main__ import main; exit(main(["build", "--invariant"]))'
 after_success:
 - echo -e 'Host gh\n    Host github.com\n    StrictHostKeyChecking no' >> ~/.ssh/config
