@@ -19,6 +19,7 @@ before_install:
 install:
 - wget https://github.com/getnikola/wheelhouse/archive/$(./getpyver.py).zip
 - unzip $(./getpyver.py).zip
+- pip install --upgrade pip setuptools
 - pip install --use-wheel --no-index --find-links=wheelhouse-$(./getpyver.py short) lxml Pillow
 - git clone https://github.com/getnikola/nikola -b $(./getdata.py branch)
 - cd nikola
