@@ -1,26 +1,28 @@
 language: python
 python:
-    - '2.7'
-    - '3.5'
+- '2.7'
+- '3.5'
 sudo: false
 addons:
-    apt:
-        packages:
-            - language-pack-en-base
+  apt:
+    packages:
+    - language-pack-en-base
 before_install:
+- openssl aes-256-cbc -K $encrypted_5a3a20ea2cb4_key -iv $encrypted_5a3a20ea2cb4_iv
+  -in id_rsa.enc -out id_rsa -d
 - git config --global user.name 'Differentiator'
 - git config --global user.email 'invariantbuildbot@getnikola.com'
 - git config --global push.default 'simple'
-- pip install pycrypto pip wheel
-- python decrypt_sshkey.py
+- pip install pip wheel
+- eval "$(ssh-agent -s)"
 - chmod 600 id_rsa
-- eval $(ssh-agent)
 - ssh-add id_rsa
 install:
 - wget https://github.com/getnikola/wheelhouse/archive/$(./getpyver.py).zip
 - unzip $(./getpyver.py).zip
 - pip install --upgrade pip setuptools
-- pip install --use-wheel --no-index --find-links=wheelhouse-$(./getpyver.py short) lxml Pillow
+- pip install --use-wheel --no-index --find-links=wheelhouse-$(./getpyver.py short)
+  lxml Pillow
 - git clone https://github.com/getnikola/nikola -b $(./getdata.py branch)
 - cd nikola
 - pip install -r requirements-extras.txt freezegun
