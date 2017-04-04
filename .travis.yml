@@ -38,6 +38,9 @@ after_success:
 - git add .
 - git commit -am "invariant build $(date) [ci skip]"
 - git push --force origin $(../../../getpyver.py)
+branches:
+  only:
+  - master
 notifications:
   irc:
     channels:
