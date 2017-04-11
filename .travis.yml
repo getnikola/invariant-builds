@@ -22,7 +22,7 @@ install:
 - unzip $(./getpyver.py).zip
 - pip install --upgrade pip setuptools
 - pip install --use-wheel --no-index --find-links=wheelhouse-$(./getpyver.py short)
-  lxml Pillow ipykernel notebook PyYAML
+  lxml Pillow PyYAML
 - git clone https://github.com/getnikola/nikola -b master
 - cd nikola
 - pip install -r requirements-extras.txt freezegun
