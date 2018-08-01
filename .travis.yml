@@ -43,5 +43,5 @@ notifications:
     - chat.freenode.net#nikola
     template:
     - 'Invariant build by %{author}: %{message} See %{build_url}.'
-    skip_join: true
+    skip_join: false
     use_notice: true
