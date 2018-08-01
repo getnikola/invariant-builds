@@ -45,3 +45,6 @@ notifications:
     - 'Invariant build by %{author}: %{message} See %{build_url}.'
     skip_join: false
     use_notice: true
+    nick: NikolaService|GH
+    password:
+      secure: Cev0y1JhfRhd1J/mfS4SOCT5FySq91+XBe7ZhXvKNG+GdeOVxuIarVeJrBh0ZJoKDCXoRFtBWdAX0YBGmX039M2+4zpy/lC9R5nIUufIP8oRObvaD87Fpr5ik+YFjbv8SlwdIbnUwe8yYe7rFduwFq+2AF90j1aCkh31whONV8U=
