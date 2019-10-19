@@ -24,7 +24,7 @@ install:
 - pip install --upgrade pip setuptools wheel
 - git clone https://github.com/getnikola/nikola -b master
 - cd nikola
-- pip install -r requirements-extras.txt freezegun
+- pip install --upgrade-strategy eager -Ur requirements-extras.txt freezegun
 - pip install .
 script:
 - scripts/baseline.sh build
