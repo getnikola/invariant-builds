@@ -12,4 +12,4 @@ Usage instructions
 
 1. edit [BUILD-DATA in invariant-builds](https://github.com/getnikola/invariant-builds/blob/master/BUILD-DATA) (you can even do it on github)
 2. wait for Travis to finish building
-3. restart the build for Python 2.7 in the main Nikola repo, or make a new commit there
+3. restart the build for latest Python on Linux with NMODE=nikola in the main Nikola repo, or make a new commit there
