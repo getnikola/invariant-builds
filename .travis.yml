@@ -4,8 +4,7 @@ python:
 cache:
 - apt
 - pip
-sudo: false
-dist: xenial
+dist: bionic
 addons:
   apt:
     packages:
