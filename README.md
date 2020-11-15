@@ -1,15 +1,11 @@
-Travis Invariant Builder for Nikola
-===================================
+Invariant/Baseline Builds for Nikola
+====================================
 
-Because Travis does crazy things, we prepare stuff for invariant building here.
+This repo contains the build workflow and built demo site that is used to make sure Nikola’s output does not have unexplained differences. The built site is available on the `v3.x` branch.
 
-Make sure to change the `BUILD-DATA` file on *every* rebuild!
+Usage instructions (for maintainers)
+------------------------------------
 
-The built site is available on the `output` branch.
-
-Usage instructions
-------------------
-
-1. edit [BUILD-DATA in invariant-builds](https://github.com/getnikola/invariant-builds/blob/master/BUILD-DATA) (you can even do it on github)
-2. wait for Travis to finish building
-3. restart the build for latest Python on Linux with NMODE=nikola in the main Nikola repo, or make a new commit there
+1. Edit [BUILD-DATA in invariant-builds](https://github.com/getnikola/invariant-builds/blob/master/BUILD-DATA) (you can even do it on GitHub), explain what changed and why in the commit message
+2. Wait for the action in this repo to build
+3. Restart the failing builds
