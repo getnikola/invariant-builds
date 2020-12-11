@@ -8,7 +8,7 @@ on:
 
 jobs:
   trigger:
-    name: Trigger an update
+    name: Update BUILD-DATA
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -31,3 +31,49 @@ jobs:
           git status
           git commit -am "${{ github.event.inputs.commit_message }}"
           git push origin master
+  baseline:
+    name: Nikola baseline site build (Python ${{ matrix.python }} on ${{ matrix.image }})
+    strategy:
+      fail-fast: false
+      matrix:
+        python: [3.8]
+        image:
+          - ubuntu-latest
+    runs-on: '${{ matrix.image }}'
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '${{ matrix.python }}'
+      - name: Clone Nikola
+        run: |
+          git clone https://github.com/getnikola/nikola.git
+      - name: Upgrade packaging stack
+        run: |
+          pip install --upgrade-strategy eager -U pip setuptools wheel
+      - name: Install requirements
+        run: |
+          pip install --upgrade-strategy eager -Ur requirements-extras.txt freezegun
+        working-directory: nikola
+      - name: Install Nikola
+        run: |
+          pip install .
+        working-directory: nikola
+      - name: Build baseline site
+        run: |
+          scripts/baseline.sh build
+        working-directory: nikola
+      - name: Push to GitHub
+        run: |
+          git config --global user.name 'Invariant Builds Action'
+          git config --global user.email 'invariantbuildbot@getnikola.com'
+          git config --global push.default 'simple'
+          git init .
+          git checkout -b $(../../scripts/getpyver.py)
+          git remote add origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git add .
+          git commit -am "invariant build $(date)"
+          git push --force origin $(../../scripts/getpyver.py)
+        working-directory: nikola/nikola-baseline-build/output
