@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: ['3.12']
+        python: ['3.13']
         image:
           - ubuntu-latest
     runs-on: '${{ matrix.image }}'
@@ -26,16 +26,13 @@ jobs:
       - name: Clone Nikola
         run: |
           git clone https://github.com/getnikola/nikola.git
-      - name: Upgrade packaging stack
+      - name: Install freezegun
         run: |
-          pip install --upgrade-strategy eager -U pip setuptools wheel
-      - name: Install requirements
-        run: |
-          pip install --upgrade-strategy eager -Ur requirements-extras.txt freezegun
+          python -m pip install --upgrade-strategy eager -U freezegun
         working-directory: nikola
       - name: Install Nikola
         run: |
-          pip install .
+          python -m pip install --upgrade-strategy eager -U .[extras]
         working-directory: nikola
       - name: Build baseline site
         run: |
